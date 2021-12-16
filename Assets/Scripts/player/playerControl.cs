@@ -9,6 +9,7 @@ public class playerControl : MonoBehaviour
     public Transform dest;
     public LayerMask stop;
 
+    List<ingredient> basket;
     drink heldDrink;
 
     // Start is called before the first frame update
@@ -28,7 +29,11 @@ public class playerControl : MonoBehaviour
         //FIXME: implement
     }
     
-    void CreateDrink(int[] ingredients) {
+    void CreateDrink() {
+        //only create drink if enough ingredients gathered
+
+
+        // add ingredients to drink
         drink d = new drink();
 
 
@@ -36,10 +41,10 @@ public class playerControl : MonoBehaviour
     }
 
     void DeliverDrink(planet customer) {
-        heldDrink = null;
-
         //give to customer
 
+        //remove drink
+        heldDrink = null;
     }
 
     // Update is called once per frame

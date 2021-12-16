@@ -10,7 +10,7 @@ public class drink
     int happinessScore;
 
     void CalculateScore() {
-        int score = 10
+        int score = 10;
         happinessScore = score;
     }
 
