@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class drink : MonoBehaviour
+public class drink
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public string constellation {get; set;}
+
+    List<ingredient> ingredients;
+    int happinessScore;
+
+    void CalculateScore() {
+        int score = 10
+        happinessScore = score;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    int GetScore() {
+        return happinessScore;
     }
 }
