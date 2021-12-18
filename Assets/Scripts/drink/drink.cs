@@ -5,11 +5,9 @@ using UnityEngine;
 public class drink
 {
     public string constellation {get; set;}
-
-    List<ingredient> ingredients;
     int happinessScore;
 
-    void CalculateScore() {
+    void CalculateScore(List<ingredient> ingredients;) {
         int score = 10;
         happinessScore = score;
     }
