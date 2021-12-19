@@ -5,24 +5,25 @@ using UnityEngine;
 
 public class planet : MonoBehaviour
 {
-    List<string> totalReqs;
+    int totalReqs;
     string constellationReq;
     public LayerMask player;
 
     GameObject reqObj;
     Sprite reqSpr;
+    bool delivered;
+
+    //GameObject spawnManager;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        totalReqs = new List<string>();
-        totalReqs.Add("test0");
-        totalReqs.Add("test1");
-        totalReqs.Add("test2");
+        totalReqs = 3;
+        delivered = false;
 
         GenerateRequest();
-        Debug.Log("Request: " + constellationReq);
+        //Debug.Log("Request: " + constellationReq);
 
         reqObj = this.gameObject.transform.GetChild(0).gameObject;
         reqObj.SetActive(false);
@@ -30,11 +31,8 @@ public class planet : MonoBehaviour
     }
 
     void GenerateRequest() {
-        int indx = Random.Range(0, totalReqs.Count);
-        string gen = totalReqs[indx];
-        constellationReq = gen;
-
-        reqSpr = Resources.Load<Sprite>("testReq/"+constellationReq);
+        constellationReq = Random.Range(0, totalReqs);
+        reqSpr = Resources.Load<Sprite>("testReq/test"+constellationReq);
     }
 
     // Update is called once per frame
@@ -44,7 +42,7 @@ public class planet : MonoBehaviour
         if(Physics2D.OverlapCircle(transform.position, 4.0f, player)) {
             Debug.Log("Within radius");
             //display request
-            if(!reqObj.activeSelf)
+            if(!reqObj.activeSelf && !delivered)
                 reqObj.SetActive(true);
 
         }
@@ -54,9 +52,20 @@ public class planet : MonoBehaviour
         }
     }
 
-    void RecieveDrink(drink d) {
+    public bool RecieveDrink(int d) {
         //check for constellation match
+        if(d != constellationReq) {
+            //no match
+            //FIXME: Angry animation
+            //FIXME: Fail sound effect
 
-        //save happiness score from drink to give feedback
+            return false;
+        }
+
+        //Accept drink
+        //FIXME: Angry animation
+        //FIXME: Accept sound effect
+        //FIXME: Despawn planet
+        return true;
     }
 }
