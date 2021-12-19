@@ -6,14 +6,12 @@ using UnityEngine;
 public class planet : MonoBehaviour
 {
     int totalReqs;
-    string constellationReq;
+    int constellationReq;
     public LayerMask player;
 
     GameObject reqObj;
     Sprite reqSpr;
     bool delivered;
-
-    //GameObject spawnManager;
     
 
     // Start is called before the first frame update
@@ -32,7 +30,7 @@ public class planet : MonoBehaviour
 
     void GenerateRequest() {
         constellationReq = Random.Range(0, totalReqs);
-        reqSpr = Resources.Load<Sprite>("testReq/test"+constellationReq);
+        reqSpr = Resources.Load<Sprite>("testReq/test"+constellationReq.ToString());
     }
 
     // Update is called once per frame
@@ -40,7 +38,7 @@ public class planet : MonoBehaviour
     {
         // If user is within certain radius, display request
         if(Physics2D.OverlapCircle(transform.position, 4.0f, player)) {
-            Debug.Log("Within radius");
+            //Debug.Log("Within radius");
             //display request
             if(!reqObj.activeSelf && !delivered)
                 reqObj.SetActive(true);
@@ -52,7 +50,7 @@ public class planet : MonoBehaviour
         }
     }
 
-    public bool RecieveDrink(int d) {
+    public bool DeliverDrink(int d) {
         //check for constellation match
         if(d != constellationReq) {
             //no match
@@ -63,9 +61,12 @@ public class planet : MonoBehaviour
         }
 
         //Accept drink
-        //FIXME: Angry animation
+        if(reqObj.activeSelf)
+            reqObj.SetActive(false);
+        
+        //FIXME: Happy animation
         //FIXME: Accept sound effect
-        //FIXME: Despawn planet
+        //FIXME: Despawn animation
         return true;
     }
 }

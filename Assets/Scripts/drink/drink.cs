@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class drink
+public class drink : MonoBehaviour
 {
-    public string type;
+    public int type;
+
+    public int GetDrink() {
+        return type;
+    }
 }

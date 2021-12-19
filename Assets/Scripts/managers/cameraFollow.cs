@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class cameraFollow : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Transform target;
+    public float smoothTime = 0.3F;
+
+    Vector3 offset;
+    Vector3 vel = Vector3.zero;
+    
+    
     void Start()
     {
-        
+        //initialize position variables
+        target = transform.parent;
+        transform.parent = null;
+        transform.position = target.position;
+
+        offset = new Vector3(0, 0, -30);
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        
+        //find target position
+        offset = new Vector3(target.position.x, target.position.y, -30);
+
+        //smoothly move the camera towards player
+        transform.position = Vector3.SmoothDamp(transform.position, offset, ref vel, smoothTime);
     }
 }

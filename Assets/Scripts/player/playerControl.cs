@@ -7,25 +7,18 @@ public class playerControl : MonoBehaviour
 
     public float moveSpeed = 1.0f;
     public Transform dest;
-    public LayerMask stop;
-    public LayerMask drinkLayer;
+    public LayerMask stop, drinkLayer, planetLayer;
+    public GameObject spawnManager;
 
-    drink heldDrink;
+    int heldDrink;
 
     // Start is called before the first frame update
     void Start()
     {
-        heldDrink = null;
+        heldDrink = -1;
         dest.parent = null;
         transform.position = new Vector3(0.5f, 0.5f, -9.0f);
        
-    }
-
-    void DeliverDrink(planet customer) {
-        //give to customer
-
-        //remove drink
-        heldDrink = null;
     }
 
     // Update is called once per frame
@@ -35,7 +28,6 @@ public class playerControl : MonoBehaviour
         float Horizontal = Input.GetAxisRaw("Horizontal");
         float Vertical = Input.GetAxisRaw("Vertical");
         Collider2D col;
-        GameObject d;
 
         /**********************************
          **       handle movement        **
@@ -53,21 +45,46 @@ public class playerControl : MonoBehaviour
          **  check for user interactions **
          **********************************/
 
-        //pick up and deliver drinks
-        if(heldDrink == null && Input.GetKeyDown(KeyCode.Z)) {
-            //pick up
+        if(Input.GetKeyDown(KeyCode.Z)) {
+            //pick up drink
             if(col = Physics2D.OverlapCircle(pos, 1.5f, drinkLayer)) {
-                d = col.gameObject.GetComponent<drink>().get
+                heldDrink = col.gameObject.GetComponent<drink>().GetDrink();
+                Debug.Log("Grabbed drink..."+heldDrink.ToString());
             }
-            //deliver
-            else if(col = Physics2D.OverlapCircle(pos, 1.5f, planet)) {
-                d = col.gameObject.GetComponent<drink>().get
+
+            if(col = Physics2D.OverlapCircle(pos, 1.5f, planetLayer)) {
+                if(heldDrink == -1) {
+                    //FIXME: Error sound effect -> no drink to deliver
+                    Debug.Log("No drink held!");
+                }
+                
             }
         }
 
-        //drop drink if any are held
-        if(heldDrink != null && Input.GetKeyDown(KeyCode.X))) {
-            
+
+        if(heldDrink != -1) {
+
+            if(Input.GetKeyDown(KeyCode.Z)) {
+                //deliver
+                if(col = Physics2D.OverlapCircle(pos, 1.5f, planetLayer)) {
+                    //was drink accepted?
+                    if(col.gameObject.GetComponent<planet>().DeliverDrink(heldDrink)) {
+                        Debug.Log("Drink successfully delivered!");
+
+                        heldDrink = -1;
+                        
+                        //destroy planet instance, but let despawn animation play first
+                        Destroy(col.gameObject, 5);
+                    }
+                }
+            }
+            //drop drink if any are held
+            else if(Input.GetKeyDown(KeyCode.X)) {
+                Debug.Log("Dropped current drink");
+                heldDrink = -1;
+            }
+
+
         }
         
     }
