@@ -8,11 +8,9 @@ public class playerControl : MonoBehaviour
     public float moveSpeed = 1.0f;
     public Transform dest;
     public LayerMask stop, drinkLayer, planetLayer;
-    public GameObject spawnManager;
 
     int heldDrink;
 
-    // Start is called before the first frame update
     void Start()
     {
         heldDrink = -1;
@@ -21,7 +19,6 @@ public class playerControl : MonoBehaviour
        
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 pos = transform.position;
@@ -74,7 +71,8 @@ public class playerControl : MonoBehaviour
                         heldDrink = -1;
                         
                         //destroy planet instance, but let despawn animation play first
-                        Destroy(col.gameObject, 5);
+                        Destroy(col.gameObject, 3);
+
                     }
                 }
             }

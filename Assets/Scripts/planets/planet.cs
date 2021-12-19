@@ -13,8 +13,6 @@ public class planet : MonoBehaviour
     Sprite reqSpr;
     bool delivered;
     
-
-    // Start is called before the first frame update
     void Start()
     {
         totalReqs = 3;
@@ -33,7 +31,6 @@ public class planet : MonoBehaviour
         reqSpr = Resources.Load<Sprite>("testReq/test"+constellationReq.ToString());
     }
 
-    // Update is called once per frame
     void Update()
     {
         // If user is within certain radius, display request
