@@ -28,7 +28,7 @@ public class planet : MonoBehaviour
 
     void GenerateRequest() {
         constellationReq = Random.Range(0, totalReqs);
-        reqSpr = Resources.Load<Sprite>("testReq/test"+constellationReq.ToString());
+        reqSpr = Resources.Load<Sprite>("requests/drink"+constellationReq.ToString());
     }
 
     void Update()
@@ -51,8 +51,6 @@ public class planet : MonoBehaviour
         //check for constellation match
         if(d != constellationReq) {
             //no match
-            //FIXME: Angry animation
-            //FIXME: Fail sound effect
 
             return false;
         }
@@ -60,10 +58,7 @@ public class planet : MonoBehaviour
         //Accept drink
         if(reqObj.activeSelf)
             reqObj.SetActive(false);
-        
-        //FIXME: Happy animation
-        //FIXME: Accept sound effect
-        //FIXME: Despawn animation
+            
         return true;
     }
 }
