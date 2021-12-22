@@ -15,7 +15,7 @@ public class playerControl : MonoBehaviour
     {
         heldDrink = -1;
         dest.parent = null;
-        transform.position = new Vector3(0.5f, 0.5f, -9.0f);
+        transform.position = new Vector3(1.0f, 1.0f, 0.0f);
        
     }
 
